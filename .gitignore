@@ -1,0 +1,7 @@
+/VW/_pycache__/
+/VW/__init__.py
+venv/
+.idea/
+*.iml
+*.pyc
+*.log
