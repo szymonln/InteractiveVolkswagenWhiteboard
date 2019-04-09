@@ -24,7 +24,7 @@ SECRET_KEY = 'c6)klo--qt113c%-5a5eh$b1nzo6uc&7pzdw%7vw_hz-ag491j'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["192.168.1.14"]
+ALLOWED_HOSTS = ["192.168.1.14", "127.0.0.1"]
 
 
 # Application definition
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
+    'whiteboard',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -119,9 +120,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+PROJECT_ROOT = os.path.normpath(os.path.dirname(__file__))
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 STATICFILES_DIRS = (
   '/home/szymon/projects/VW/VW/accounts/login/static/',
 )
 
+LOGIN_REDIRECT_URL = '/'
 
