@@ -1,5 +1,4 @@
 <!-- templates/registration/login.html -->
-{% load crispy_forms_tags %}
 {% load static %}
 
 <html>
@@ -10,17 +9,16 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-  {% csrf_token %}
     <div class="text-center container-fluid" style="max-width:550px">
         <div class="img">
             <img src="/static/volkswagen_logo.png" class="img-fluid" style="max-width:70%; margin-top:10px">
         </div>
-        <form method="POST" class="text-center form-signin rounded login" style="padding:10px" action="/whiteboard/">
+        <form method="post" class="text-center form-signin rounded login" style="padding:10px">
             {% csrf_token %}
             <h1 class="h3 mb-3 font-weight-normal text-dark" style="margin: 0px">Interactive Volkswagen Whiteboard</h1>
             <div style="margin:60px"></div>
-            <input id="id_username" name="username" type="text" class="form-control bg-light" placeholder="Email Address" style="margin-bottom:10px">
-            <input id="id_password" name="password" type="password" class="form-control bg-light" placeholder="Password" style="">
+            <input id="id_username" name="username" autofocus required type="text" class="form-control bg-light" placeholder="Email Address" style="margin-bottom:10px">
+            <input id="id_password" name="password" type="password" required class="form-control bg-light" placeholder="Password" style="">
             <button type="submit" class="btn btn-lg btn-secondary" style="margin-top:20px; background-color:#2A5BA7">Log In</button>
         </form>
     </div>
