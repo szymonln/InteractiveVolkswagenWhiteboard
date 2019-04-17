@@ -36,11 +36,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-   # 'crispy_forms',
+    'crispy_forms',
     'whiteboard',
 ]
 
-#CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -127,6 +127,6 @@ STATICFILES_DIRS = (
   '/home/szymon/projects/VW/VW/static/',
 )
 
-LOGIN_REDIRECT_URL = '/whiteboard/'
+LOGIN_REDIRECT_URL = '/'
 MEDIA_ROOT = 'whiteboard/documents'
 MEDIA_URL = '/whiteboard/documents/'

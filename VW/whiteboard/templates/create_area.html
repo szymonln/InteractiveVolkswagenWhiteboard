@@ -1,8 +1,9 @@
-<!-- templates/whiteboard/before_meeting.html -->
-{% load static %}
+{% load crispy_forms_tags %}
 
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <title>iVW</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -10,10 +11,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+
+
 <nav class="navbar navbar-expand-sm navbar-dark fixed-bottom" style="background-color:#2A5BA7;">
     <ul class="navbar-nav mr-auto dropup">
           <li class="nav-item">
-            <a class="nav-link" href="/create_agenda">Prepare New Agenda</a>
+            <a class="nav-link" href="{{back}}"><< Back</a>
           </li>
     </ul>
 
@@ -31,31 +34,22 @@
     </div>
 
 </nav>
+
 <div style="padding-bottom:60px">
     <div class="text-center container-fluid" style="margin-top:40px">
-        <h1 class="h1 mb-3 font-weight-normal text-dark">Before Meeting</h1>
-        <h3 class="h6 mb-3 font-weight-normal text-dark" style="margin-top:30px">In this view you can manage your Areas and Whiteboards. Click on the menu icon in the bottom
-        toolbar to proceed to next views.</h3>
+        <h1 class="h1 mb-3 font-weight-normal text-dark">Create Area</h1>
     </div>
-    <div class="container">
-        <hr>
-        <div style="position:relative;top:-5px;"><h3 class="h6 font-weight-light text-muted text-center">LAST MEETINGS</h3></div>
-    <div class="row justify-content-center">
-        {% for agenda in agendas %}
-        <div class="card" style="margin:10px; width:15rem">
-          <div class="card-body">
-            <h5 class="card-title">{{agenda.name}}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{{agenda.area.name}}</h6>
-            <p class="card-text">{{agenda.content}}</p>
-             <p><a class="btn btn-secondary" href="admin/whiteboard/agenda/{{agenda.id}}/change/" role="button" style="bottom:15px; background-color:#2A5BA7">Start meeting »</a></p>
-          </div>
+
+    <div class="container" style="max-width:550px">
+        <div class="alert alert-secondary" role="alert">
+          This form lets you create a new Area.<br>
         </div>
-        {% endfor %}
+        <form method="post">
+        {% csrf_token %}
+        {{form|crispy}}
+            <button type="submit" class="btn btn-lg btn-secondary" style="margin-top:20px; background-color:#2A5BA7; float:right">Next >></button>
+        </form>
     </div>
-    <hr>
-
-  </div>
-
 </div>
 
 </body>

@@ -6,6 +6,7 @@ from . import views
 
 urlpatterns = [
     path('', views.before_meeting, name='before_meeting'),
+    path('create_agenda/', views.create_agenda, name='create_agenda')
 ]
 urlpatterns += static('documents', document_root=".")
 
