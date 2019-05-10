@@ -9,17 +9,34 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-    <div class="text-center container-fluid" style="max-width:550px">
-        <div class="img">
-            <img src="/static/volkswagen_logo.png" class="img-fluid" style="max-width:70%; margin-top:10px">
+<body style="
+background: rgba(255,255,255,1);
+background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(54,128,231,1) 100%);
+background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(100%, rgba(54,128,231,1)));
+background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(54,128,231,1) 100%);
+background: -o-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(54,128,231,1) 100%);
+background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(54,128,231,1) 100%);
+background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(54,128,231,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#3680e7', GradientType=0 );
+">
+
+
+    <div class="container-fluid " style="max-width:600px; height:100%; display:table;width:100%; position:relative;top:-30px">
+        <div style="display:table-cell;vertical-align:middle">
+            <div class="img text-center">
+                <img src="/static/volkswagen_logo.png" class="img-fluid" style="max-width:65%;">
+            </div>
+            <div class="text-center" style="margin-top:30px">
+            <form method="post" class="form-signin rounded login" style="">
+                {% csrf_token %}
+                <h1 class="h3 mb-3 font-weight-normal text-light" style="margin: 0px;">Interactive Volkswagen Whiteboard</h1>
+                <div style="margin:60px"></div>
+                <input id="id_username" name="username" autofocus required type="text" class="form-control bg-light" placeholder="Email Address" style="margin-bottom:10px">
+                <input id="id_password" name="password" type="password" required class="form-control bg-light" placeholder="Password" style="">
+                <button type="submit" class="btn btn-lg btn-secondary" style="margin-top:20px; background-color:#2A5BA7">Log In</button>
+            </form>
+            </div>
         </div>
-        <form method="post" class="text-center form-signin rounded login" style="padding:10px">
-            {% csrf_token %}
-            <h1 class="h3 mb-3 font-weight-normal text-dark" style="margin: 0px">Interactive Volkswagen Whiteboard</h1>
-            <div style="margin:60px"></div>
-            <input id="id_username" name="username" autofocus required type="text" class="form-control bg-light" placeholder="Email Address" style="margin-bottom:10px">
-            <input id="id_password" name="password" type="password" required class="form-control bg-light" placeholder="Password" style="">
-            <button type="submit" class="btn btn-lg btn-secondary" style="margin-top:20px; background-color:#2A5BA7">Log In</button>
-        </form>
     </div>
+</body>
 </html>

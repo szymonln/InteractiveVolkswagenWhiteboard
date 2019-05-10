@@ -1,0 +1,101 @@
+{% load crispy_forms_tags %}
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>iVW</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="background-color:#f9f9f9">
+
+<nav class="navbar navbar-expand-sm navbar-dark fixed-bottom" style="background-color:#2A5BA7;
+                                                                    -webkit-box-shadow: -8px 18px 21px 17px rgba(0,0,0,0.75);
+                                                                    -moz-box-shadow: -8px 18px 21px 17px rgba(0,0,0,0.75);
+                                                                    box-shadow: -8px 18px 21px 17px rgba(0,0,0,0.75);">
+    <ul class="navbar-nav mr-auto dropup">
+          <li class="nav-item">
+            <a class="nav-link" href="/"><< Back</a>
+          </li>
+    </ul>
+
+    <div class="collapse navbar-collapse" id="navbar_content">
+        <div class="navbar-nav ml-auto" style="margin-right:5px">
+          <a class="navbar-brand mr-auto" style="color:white" >
+             Interactive Volkswagen Whiteboard
+           </a>
+        </div>
+    </div>
+    <div class="navbar-nav ml-auto">
+          <a class="navbar-brand mr-auto" style="color:white" >
+            <img src="/static/volkswagen_logo_no_transparency.png" width="30" height="30" class="d-inline-block align-top" alt="">
+          </a>
+    </div>
+
+</nav>
+
+<div style="padding-bottom:60px">
+    <div class="text-center container-fluid" style="margin-top:40px;">
+        <h1 class="h1 mb-3 font-weight-normal text-dark">Create Whiteboards</h1>
+    </div>
+
+    <div class="container " style="max-width:550px; padding-bottom:80px">
+        <div class="alert alert-secondary" role="alert">
+          Create Whiteboards for your agenda
+            <br><small>You will be able to add files to these whiteboards in next step</small><br>
+        </div>
+        <form method="POST" id="form">
+        {% csrf_token %}
+        {{ formset.management_form }}
+        {% for form in formset %}
+            {{ form|crispy }}
+        {% endfor %}        
+        <button type="submit" id="submit-btn" class="btn btn-secondary" style="background-color:#2A5BA7; float:right">Next >></button>
+        <button type="button" name="file_btn" id="add_more" class="btn btn-success" style="margin-right:10px; float:right">Add More</button>
+        </form>
+    </div>
+</div>
+</body>
+<script type='text/javascript'>
+
+$('#add_more').click(function() {
+        clone();
+    });
+//$('.form-control').keyup(function(){
+//        $(this).prop("value", $(this).val());
+//        $(this).attr("value", $(this).val());
+//        console.log("AAAA")
+//});
+
+function clone(){
+    totalForms = parseInt(document.getElementsByName("form-TOTAL_FORMS")[0].value);
+    new_id = 'id_form-' + (totalForms) + '-name';
+    new_name = 'form-' + (totalForms) + '-name';
+    var inputwrapper = document.createElement("div")
+    inputwrapper.setAttribute("id", "div_"+new_id)
+    inputwrapper.className = "form-group"
+    var div = document.createElement("div")
+    div.className = ""
+    var input = document.createElement("input");   
+    input.setAttribute("type", "text") 
+    input.setAttribute("name", new_name)
+    input.classList.add("form-control")
+    input.classList.add("textinput")
+    input.classList.add("textInput")  
+    input.setAttribute("placeholder", String(totalForms+1) + ". Whiteboard Name")
+    input.setAttribute("maxlength", "100")
+    input.setAttribute("id", new_id)
+    div.appendChild(input);
+    inputwrapper.appendChild(div);
+    document.getElementsByName("form-TOTAL_FORMS")[0].value = String(totalForms + 1);
+    document.getElementsByName("form-INITIAL_FORMS")[0].value = String(totalForms + 1);
+    var submitButton = document.getElementById('submit-btn');
+    var form = document.getElementById('form')
+    form.insertBefore(inputwrapper, submitButton);
+}    
+
+</script>
+</html>

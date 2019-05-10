@@ -40,20 +40,63 @@ box-shadow: -8px 18px 21px 17px rgba(0,0,0,0.75);">
 
 <div style="padding-bottom:60px">
     <div class="text-center container-fluid" style="margin-top:40px">
-        <h1 class="h1 mb-3 font-weight-normal text-dark">Create Area</h1>
+        <h1 class="h1 mb-3 font-weight-normal text-dark">Add files</h1>
     </div>
 
-    <div class="container" style="max-width:550px; padding-bottom:80px">
-        <div class="alert alert-secondary" role="alert">
-          This form lets you create a new Area.<br>
-        </div>
-        <form method="post">
+    <div class="container" style="max-width:550px; margin-top:40px; padding-bottom:80px">
+
+        <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{form|crispy}}
-            <button type="submit" class="btn btn-secondary" style="margin-top:20px; background-color:#2A5BA7; float:right">Next >></button>
+        {{ management_form }}
+        {% for form, name in formset %}
+            <div class="card" style="margin:10px">
+                <div class="card-body">
+                    <h5 class="card-title">Whiteboard: {{name}}</h5>
+                    <div class="card-body" id="form_{{name}}">
+                    {{ form|crispy }}
+                        <button type="button" onclick="add_file_input('{{name}}')" id="add_more_{{name}}" class="btn btn-success" style="margin-right:10px; float:right">Add More</button>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+            <button type="submit" name="files"  id="files" class="btn btn-secondary" style="margin-top:20px; background-color:#2A5BA7; float:right">Next >></button>
         </form>
     </div>
 </div>
-
 </body>
+<script type='text/javascript'>
+
+function add_file_input(name){
+    var form = document.getElementById('form_'+ name)
+    var inputs = form.getElementsByClassName("clearablefileinput")
+    var new_input = inputs[inputs.length-1]
+    console.log(new_input)
+    var files_count = new_input.id.substr(new_input.id.length -1)
+    if (isNaN(parseInt(files_count, 10))){
+        new_input.id += "0"
+        new_input.name += '0'
+        files_count = 0
+    }
+    else{
+        files_count = parseInt(files_count,10)
+    }
+    new_id = new_input.id.substr(0, new_input.id.length-1)  + String(files_count+1)
+    new_name = new_input.name.substr(0, new_input.name.length-1) + String(files_count+1)
+    var div = document.createElement("div")
+    div.className = ""
+    var new_input = document.createElement("input")
+    new_input.setAttribute("type", "file")
+    new_input.className = "clearablefileinput"
+    new_input.setAttribute("id", new_id)
+    new_input.setAttribute("name", new_name)
+    div.appendChild(new_input)
+    var add_more_btn = document.getElementById('add_more_'+name);
+    var input_wrapper = form.getElementsByClassName("form-group")[0]
+    input_wrapper.appendChild(div)
+    //input_wrapper.insertBefore(div, add_more_btn)
+
+}
+
+</script>
+
 </html>
