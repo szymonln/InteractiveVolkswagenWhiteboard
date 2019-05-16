@@ -10,7 +10,7 @@ urlpatterns = [
     path('create_area/', views.create_area, name='create_area'),
     path('create_select_whiteoard', views.create_select_whiteboard, name='create_select_whiteboard'),
     path('add_files_to_whiteboard', views.add_files_to_whiteboard, name='add_files_to_whiteboard'),
-    path('meeting', views.meeting, name='meeting')
+    path('meeting/<int:meeting_id>', views.meeting, name='meeting')
 ]
 urlpatterns += static('documents', document_root=".")
 

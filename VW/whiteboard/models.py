@@ -4,7 +4,6 @@ from datetime import datetime
 from django.utils.timezone import now as date_now
 
 
-
 class File(models.Model):
     date = datetime.today().strftime('%Y-%m-%d')
     date_created = models.DateTimeField(blank=True, default=date_now())

@@ -7,12 +7,16 @@ from .models import *
 class AgendaForm(ModelForm):
     class Meta:
         model = Agenda
-        fields = ['name', 'area', 'owner']
-        labels = {'name': '', 'area': 'Area', 'owner': 'Owner'}
+        fields = ['name', 'area', 'content']
+        labels = {'name': '', 'area': 'Area', 'content': ''}
         widgets = {
             'name': forms.TextInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Agenda Name'
+            }),
+            'content': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Description'
             })
         }
 
@@ -51,5 +55,6 @@ class FileForm(ModelForm):
         model = File
         fields = ['file']
         labels = {'file': ''}
+
 
 FileFormSet = formset_factory(FileForm, extra=1)

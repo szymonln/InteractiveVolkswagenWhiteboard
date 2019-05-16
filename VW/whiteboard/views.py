@@ -14,13 +14,15 @@ import os
 
 
 def before_meeting(request):
-    agendas = Agenda.objects.filter(owner=request.user)
-    context = {
-        'agendas': agendas,
-        'user_name': request.user.get_full_name()
-    }
-    if request.POST:
-        context['areas'] = request.body
+    context = {}
+    if request.user.is_authenticated:
+        agendas = Agenda.objects.filter(owner=request.user)
+        context = {
+            'agendas': agendas,
+            'user_name': request.user.get_full_name()
+        }
+        if request.POST:
+            context['areas'] = request.body
 
     return render(request, 'before_meeting.html', context)
 
@@ -33,11 +35,14 @@ def create_agenda(request):
         if form.is_valid():
             data = form.cleaned_data
             context = {}
-            agenda = Agenda(name=data['name'], owner=data['owner'])
+            agenda = Agenda(name=data['name'], owner=request.user, content=data['content'])
             agenda.save()
             request.session['current_agenda_pk'] = agenda.pk
             if data['area'] is not None:
                 request.session['current_area_pk'] = data["area"].pk
+                current_area = Area.objects.filter(pk=data["area"].pk)[0]
+                agenda.area = current_area
+                agenda.save()
                 return redirect('create_select_whiteboard')
             elif data['area'] is None:
                 area_form = AreaForm(request.POST)
@@ -62,7 +67,8 @@ def create_area(request):
             area.save()
             current_agenda_pk = request.session['current_agenda_pk']
             agenda = Agenda.objects.filter(pk=current_agenda_pk)[0]
-            agenda.update(area=area)
+            agenda.area = area
+            agenda.save()
             request.session['current_area_pk'] = area.pk
             return redirect('create_select_whiteboard')
     else:
@@ -126,13 +132,13 @@ def add_files_to_whiteboard(request):
                         try:
                             file = request.FILES[base_file_name+str(i)]
                             file_path = handle_uploaded_file(file, request.user)
-                            file_obj = File(date_created=date_now(), file=file_path, owner=request.user, name=file.name)
+                            file_obj = File(date_created=date_now(), path=file_path, file=file_path, owner=request.user, name=file.name)
                             file_obj.save()
                             current_whiteboard.files.add(file_obj)
                         except MultiValueDictKeyError:
                             continue
                 it += 1
-            return redirect('meeting')
+            return redirect('meeting/'+str(request.session['current_agenda_pk']))
     else:
         formset_dyn = formset_factory(FileForm, extra=whiteboards_count)
         formset = formset_dyn(request.POST or None)
@@ -157,17 +163,19 @@ def handle_uploaded_file(f, user):
     return 'documents/' + str(date) + '/' + str(user) + '/' + f.name
 
 
-def meeting(request):
-    current_agenda_pk = request.session['current_agenda_pk']
+def meeting(request, meeting_id=None):
+
+    if meeting_id:
+        current_agenda_pk = meeting_id
+    else:
+        current_agenda_pk = request.session['current_agenda_pk']
+
     current_agenda = Agenda.objects.filter(pk=current_agenda_pk)[0]
-    whiteboards = request.session['whiteboards']
+    whiteboards = current_agenda.selected_whiteboards.all()
 
     context = {}
     context['name'] = current_agenda.name
-    whiteboard_o = Whiteboard.objects.filter(pk=whiteboards[0]['pk'])
-    files = whiteboard_o[0].files.all()
-    context['files'] = []
-    for file in files:
-        context['files'].append(file.path)
+    context['whiteboard_active'] = whiteboards[0]
+    context['whiteboards'] = whiteboards[1::]
 
     return render(request, 'meeting.html', context)
