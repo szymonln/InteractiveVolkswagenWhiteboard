@@ -41,6 +41,8 @@ class Area(models.Model):
 
 
 class Agenda(models.Model):
+    date = datetime.today().strftime('%Y-%m-%d')
+    last_held = models.DateTimeField(blank=True, default=None, null=True)
     name = models.CharField(max_length=100, default=None)
     area = models.ForeignKey(Area, default=None, on_delete=models.SET(None), blank=True, null=True)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=None)

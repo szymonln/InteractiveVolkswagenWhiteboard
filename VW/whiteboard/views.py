@@ -16,7 +16,8 @@ import os
 def before_meeting(request):
     context = {}
     if request.user.is_authenticated:
-        agendas = Agenda.objects.filter(owner=request.user)
+        agendas = reversed(Agenda.objects.filter(owner=request.user))
+        print(agendas)
         context = {
             'agendas': agendas,
             'user_name': request.user.get_full_name()

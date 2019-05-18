@@ -3,13 +3,16 @@
 
 <html>
 <head>
+    <title>iVWhiteboard</title>
+    <link href = "/static/volkswagen_logo.png" rel="icon" type="image/png"> 
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body class="bg-light">
+<body class="" style="background-color:#edf3fc">
 <nav class="navbar navbar-expand-sm navbar-dark fixed-bottom" style="background-color:#2A5BA7;
                                                                     -webkit-box-shadow: -8px 18px 21px 17px rgba(0,0,0,0.75);
                                                                     -moz-box-shadow: -8px 18px 21px 17px rgba(0,0,0,0.75);
@@ -23,7 +26,7 @@
     {% else %}
     <ul class="navbar-nav mr-auto dropup">
             <li class="row nav-item text-white" style="margin-right:10px">
-              <a class="btn bg-success text-white" href="/accounts/login"style="padding-left:40px; padding-right:40px; margin-left:15px; margin-right:15px">Log In
+              <a class="btn bg-info text-white" href="/accounts/login" style="padding-left:40px; padding-right:40px; margin-left:15px; margin-right:15px">Log In
               </a>
               <div class="collapse navbar-collapse">
               Please log in to see your last meetings.</div>
@@ -45,7 +48,6 @@
             <img src="/static/volkswagen_logo_no_transparency.png" width="30" height="30" class="d-inline-block align-top" alt="">
           </a>
     </div>
-
 </nav>
 
 <div style="padding-bottom:46px">
@@ -56,12 +58,12 @@
             <div class="card-header text-white">
                         <h3 class="text-white">
                         {% if user.is_authenticated %}
-                            Before Meeting
-                            <small> | {{user.get_full_name}}</small>
+                            Before Meeting</h3>
+                            <h7>{{user.get_full_name}}</h7>
                         {% else %}
-                            Interactive Volkswagen Whiteboard
+                            Interactive Volkswagen Whiteboard</h3>
                         {% endif %}
-                        </h3>
+                        
             </div>
         </div>
     </div>
@@ -71,8 +73,15 @@
             <div style="position:relative;top:-5px;"><h3 class="h6 font-weight-light text-muted text-center">LAST MEETINGS</h3></div>
         <div class="row justify-content-center">
             {% for agenda in agendas %}
-            <div class="card  mb-3 bg-secondary-50 text-white border-info" style="margin:10px; width:20rem; border-radius: 100; background-color:#9ea3aa">
-                <div class="card-header text-center"><h5>{{agenda.name}}</h5></div>
+            <div class="card  mb-3 bg-secondary-50 text-white border-info" style="margin:10px; width:20rem; border-radius: 100; ..background-color:#9ea3aa; background: rgba(42,91,167,1);
+            background: -moz-linear-gradient(top, rgba(42,91,167,1) 0%, rgba(91,192,222,1) 100%);
+            background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(42,91,167,1)), color-stop(100%, rgba(91,192,222,1)));
+            background: -webkit-linear-gradient(top, rgba(42,91,167,1) 0%, rgba(91,192,222,1) 100%);
+            background: -o-linear-gradient(top, rgba(42,91,167,1) 0%, rgba(91,192,222,1) 100%);
+            background: -ms-linear-gradient(top, rgba(42,91,167,1) 0%, rgba(91,192,222,1) 100%);
+            background: linear-gradient(to bottom, rgba(42,91,167,1) 0%, rgba(91,192,222,1) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2a5ba7', endColorstr='#5bc0de', GradientType=0 );">
+                <div class="card-header text-center"><h4 style="margin-bottom:10px">{{agenda.name}}</h4><h7 style="padding-left:10px; padding-right:10px; padding-top:5px; padding-bottom:5px; color:2a5ba7" class="bg-white rounded-lg"><i style="margin-right:10px;"class="fa fa-clock-o fa-1.5x"></i>{{agenda.last_held}}</h7></div>
               <div class="card-body">
                 <h6 class="card-subtitle mb-2 ">Area: {{agenda.area.name}}</h6><hr>
                 <p class="card-text">{{agenda.content}}</p>
@@ -112,7 +121,15 @@
                     <ol class="carousel-indicators">
                     </ol>
                     <div class="carousel-inner" style="height:88%; width:100%">
-                        <div class="carousel-item active bg-secondary text-center text-white" style="height:100%;">
+                        <div class="carousel-item active bg-secondary text-center text-white" style="height:100%; background: rgba(255,255,255,1);
+background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(54,128,231,1) 100%);
+background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(100%, rgba(54,128,231,1)));
+background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(54,128,231,1) 100%);
+background: -o-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(54,128,231,1) 100%);
+background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(54,128,231,1) 100%);
+background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(54,128,231,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#3680e7', GradientType=0 );
+">
                             <div style="margin: 0;position: absolute;top: 50%;left: 50%;-ms-transform: translate(-50%, -50%);transform: translate(-50%, -50%);">
 
                                <h3>Take your meetings to the next level!</h3>

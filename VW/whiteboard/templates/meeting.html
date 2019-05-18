@@ -3,67 +3,183 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>iVW</title>
+    <title>iVWhiteboard</title>
+    <link href = "/static/volkswagen_logo.png" rel="icon" type="image/png">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+     <script src="https://code.jquery.com/jquery-1.12.4.js"></script> 
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
+    <style>
+    .btn:active {
+        background-color: white !important;
+    }
+    #collapseONe {
+    background: rgba(42,91,167,1);
+    background: -moz-linear-gradient(top, rgba(42,91,167,1) 0%, rgba(91,192,222,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(42,91,167,1)), color-stop(100%, rgba(91,192,222,1)));
+    background: -webkit-linear-gradient(top, rgba(42,91,167,1) 0%, rgba(91,192,222,1) 100%);
+    background: -o-linear-gradient(top, rgba(42,91,167,1) 0%, rgba(91,192,222,1) 100%);
+    background: -ms-linear-gradient(top, rgba(42,91,167,1) 0%, rgba(91,192,222,1) 100%);
+    background: linear-gradient(to bottom, rgba(42,91,167,1) 0%, rgba(91,192,222,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2a5ba7', endColorstr='#5bc0de', GradientType=0 );
+    }
+    </style>
+    <script>
+    $( function() {
+      $( ".file" ).draggable();
+      $( ".steering" ).draggable();
+        
+
+    })
+    </script>    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body class="bg-secondary">
+<body class="bg-dark">
 
     <nav class="navbar navbar-expand-sm navbar-dark fixed-bottom" style="background-color:#2A5BA7; height:55px;
                                                                         -webkit-box-shadow: -8px 18px 21px 17px rgba(0,0,0,0.75);
                                                                         -moz-box-shadow: -8px 18px 21px 17px rgba(0,0,0,0.75);
                                                                         box-shadow: -8px 18px 21px 17px rgba(0,0,0,0.75);">
+        <ul class="navbar-nav mr-auto dropup">
+                <li class="nav-item">
+                  <a class="btn bg-info text-white" href="/">End meeting</a>
+                </li>
+          </ul>
 
-        <!-- FILES STEERING -->
-            <div class=fixed-bottom" style="position:relative; top:-46px; left:-7px; margin-right:3px">
-                <div class="card text-center border-white" style="background-color:#2A5BA7">
-                    <div class="row card-header text-white text-center" style="width:260px">
-                        <a id="prev-file" onclick="prevFile()" style="position:relative; left:5px">
-                            <span class="carousel-control-prev-icon" style="margin-right:10px; position:relative; top:3px" aria-hidden="true"></span>
+        <div style="position:relative; top:-130px; right:120px; background-color:#2A5BA7; width:300px; border:2px solid white; border-radius:300;" class="steering rounded-lg" id="accordionExample">
+            <div class="card text-white" style="background-color:#2A5BA7; border:solid 2px #2a5ba7">
+            <div class="grid" id="headingOne" style="border: 3px solid #2a5ba7">
+                <div class="row justify-content-center text-white text-center rounded-lg" style="padding:10px; width:280px;">
+                    <a style="position:absolute; left:0px; top:17px; padding:10px" href="#carouselExampleIndicators" role="button" data-slide="prev" onclick="prevWhiteboard()">
+                            <span class="carousel-control-prev-icon" style="margin-right:15px" aria-hidden="true"></span>
                             <span class="sr-only">Previous</span>
-                        </a>
-                        <div id="file_manager_name">Files</div>
-                        <a id="next-file" onclick="nextFile()" style="position:absolute; right:10px">
-                                <span class="carousel-control-next-icon" style="margin-left:10px; position:relative; top:3px" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
-                              </a>
-                    </div>
-                    <div class="card-body">
-                          <a id="minus-size" class="carousel-control" onclick="diminish()">
-                              <div class="btn text-secondary border-white bg-white" style="margin-right:15px; position:relative; top:-2px; ">-</div>
-                          </a>
-                          <a id="plus-size" onclick="enlarge()">
-                              <div class="btn text-secondary border-white bg-white" style="margin-right:15px; position:relative; top:-2px; ">+</div>
-                          </a>
-                          <a id="draw">
-                              <div class="btn text-secondary border-white bg-white" style="margin-right:0px; position:relative; top:-2px; ">Draw</div>
-                          </a>
-
-                    </div>
+                    </a>
+                    <h5 id="wb_steer_indicator" style="position:relative; right:-20px; top:10px" class="text-white font-weight-normal">Whiteboards</h5>
+                    <a style="position:absolute; right:0px; top:17px; padding:10px" href="#carouselExampleIndicators" role="button" data-slide="next" onclick="nextWhiteboard()">
+                            <span class="carousel-control-next-icon"  aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                    </a>
+                </div>
+                <div class="row justify-content-center">
+                    <button class="btn text-white" type="button" onclick="toggleIcon()" style="background-color:#2A5BA7" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        <i id="showfiles" class="fas fa-chevron-down fa-2x"></i>
+                    </button> 
                 </div>
             </div>
 
+            </div>
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div class="card text-center rounded-0 " sadsastyle="..background-color:#2A5BA7" style="padding-top:20px; border:2px solid #2a5ba7;
+                        background: rgba(42,91,167,1);
+                        background: -moz-linear-gradient(top, rgba(42,91,167,1) 0%, rgba(91,192,222,1) 100%);
+                        background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(42,91,167,1)), color-stop(100%, rgba(91,192,222,1)));
+                        background: -webkit-linear-gradient(top, rgba(42,91,167,1) 0%, rgba(91,192,222,1) 100%);
+                        background: -o-linear-gradient(top, rgba(42,91,167,1) 0%, rgba(91,192,222,1) 100%);
+                        background: -ms-linear-gradient(top, rgba(42,91,167,1) 0%, rgba(91,192,222,1) 100%);
+                        background: linear-gradient(to bottom, rgba(42,91,167,1) 0%, rgba(91,192,222,1) 100%);
+                        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2a5ba7', endColorstr='#5bc0de', GradientType=0 );">
+
+                            <div class="row text-white text-center" style="width:300px">
+                                <a id="prev-file" onclick="prevFile()" style="position:relative; left:25px">
+                                    <span class="carousel-control-prev-icon" style="margin-right:10px; position:relative; top:3px" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <div id="file_manager_name" style="position:relative; top:2px; left:30px" class="font-weight-bold">Files</div>
+                                <a id="next-file" onclick="nextFile()" style="position:absolute; right:10px">
+                                        <span class="carousel-control-next-icon" style="margin-left:10px; position:relative; top:3px" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                            </div>
+                            <div class="card-body">
+                                <div class="row justify-content-center" style="position:relative; left:-5px">
+                                <a id="minus-size" class="carousel-control" onclick="diminish()" style="padding:10px">
+                                    <div class="" style="color:white; margin-right:20px; position:relative; top:-2px; "><i class="fa fa-minus "></i>
+                                        </div>                          </a>
+                                <a id="plus-size" onclick="enlarge()"  style="padding:10px">
+                                    <div class="" style="color:white; margin-left:20px; position:relative; top:-2px; "><i class="fa fa-plus "></i>
+                                        </div>
+                                </a>
+                                </div>
+
+                            </div>
+                            <div class="">
+                                    <button style="position:relative;" class="btn btn-block text-white font-weight-bold rounded-top" id="drawButton" data-toggle="collapse" data-target="#colors" aria-expanded="false" onclick='createCanvasOverlay("rgba(150,150,150,0.2)")'>Draw</button>
+                                    <div class="btn-group btn-group-toggle collapse" id="colors" data-toggle="buttons" style="width:100%;">
+                                            <label style="height: 100%" class="btn btn-danger active" onclick="drawRed()">
+                                              <input type="radio" name="options" id="option1" autocomplete="off" checked> 
+                                            </label>
+                                            <label class="btn btn-warning " onclick="drawYellow()">
+                                              <input type="radio" name="options" id="option2" autocomplete="off" onclick="drawYellow()"> 
+                                            </label>
+                                            <label class="btn btn-success" onclick="drawGreen()">
+                                              <input type="radio" name="options" id="option3" autocomplete="off" onclick="drawGreen()"> 
+                                            </label>
+                                        </div>
+                            </div>
+
+                    </div>
+
+                
+                </div>
+                
+                </div>
+        </div>
 
 
-        <!-- CAROUSEL STEERING -->
-            <div class=fixed-bottom" style="position:relative; top:-40px; margin-right:5px">
-                <div class="card text-center border-white" style="background-color:#2A5BA7">
-                    <div class="card-header text-white">Whiteboards</div>
+
+
+<!--        &lt;!&ndash; FILES STEERING &ndash;&gt;-->
+<!--            <div style="position:relative; top:-46px; left:-7px; margin-right:3px">-->
+<!--                <div class="card text-center  border-white rounded-lg" style="background-color:#2A5BA7">-->
+<!--                    <div class="row card-header text-white text-center" style="width:300px">-->
+<!--                        <a id="prev-file" onclick="prevFile()" style="position:relative; left:5px">-->
+<!--                            <span class="carousel-control-prev-icon" style="margin-right:10px; position:relative; top:3px" aria-hidden="true"></span>-->
+<!--                            <span class="sr-only">Previous</span>-->
+<!--                        </a>-->
+<!--                        <div id="file_manager_name" style="position:relative; top:2px;" class="font-weight-bold text-center">Files</div>-->
+<!--                        <a id="next-file" onclick="nextFile()" style="position:absolute; right:10px">-->
+<!--                                <span class="carousel-control-next-icon" style="margin-left:10px; position:relative; top:3px" aria-hidden="true"></span>-->
+<!--                                <span class="sr-only">Previous</span>-->
+<!--                              </a>-->
+<!--                    </div>-->
+<!--                    <div class="card-body">-->
+<!--                        <div class="row justify-content-center" style="position:relative; left:-5px">-->
+<!--                          <a id="minus-size" class="carousel-control" onclick="diminish()">-->
+<!--                            <div class="text-white" style="background-color:#2A5BA7; margin-right:20px; position:relative; top:-2px; "><i class="fa fa-minus-circle fa-3x"></i>-->
+<!--                                </div>                          </a>-->
+<!--                          <a id="plus-size" onclick="enlarge()">-->
+<!--                              <div class="text-white" style="background-color:#2A5BA7; margin-left:20px; position:relative; top:-2px; "><i class="fa fa-plus-circle fa-3x"></i>-->
+<!--                                </div>-->
+<!--                          </a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+
+
+        <!-- CAROUSEL STEERING
+            <div class=fixed-bottom" style="position:relative; top:-46px; margin-right:5px">
+                <div class="card text-center border-white rounded-lg " style="background-color:#2A5BA7">
+                    <div id="wb_steer_indicator" class="card-header text-white font-weight-bold">Whiteboards</div>
                     <div class="card-body">
                         <a class="" href="#carouselExampleIndicators" role="button" data-slide="prev" onclick="prevWhiteboard()">
                             <span class="carousel-control-prev-icon" style="margin-right:15px" aria-hidden="true"></span>
                             <span class="sr-only">Previous</span>
                           </a>
+                          <a id="draw">
+                                <div class="btn text-secondary border-white bg-white font-weight-bold" style="background-color:#2A5BA7; margin-right:0px; position:relative; top:-5px; left:-7px ">Draw</div>
+                            </a>
                           <a class="" href="#carouselExampleIndicators" role="button" data-slide="next" onclick="nextWhiteboard()">
                             <span class="carousel-control-next-icon"  aria-hidden="true"></span>
                             <span class="sr-only">Next</span>
                           </a>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
         <div class="collapse navbar-collapse" id="navbar_content">
             <div class="navbar-nav ml-auto" style="margin-right:5px">
@@ -83,35 +199,46 @@
     <div style="padding-bottom:60px">
         <!-- <div class="text-center container-fluid" style="height:100vh; margin-top:25px; margin-bottom:30px">
             <h1 class="h1 mb-3 font-weight-normal text-white">{{name}}</h1> -->
-        <div class="container " style="max-width:100%; padding-bottom:80px; margin-top:30px">
+        <div class="container " style="max-width:100%; margin-top:20px">
 
-            <div id="carouselExampleIndicators" class="carousel slide">
-              <div class="carousel-inner">
+            <div id="carouselExampleIndicators" class="carousel slide" data-interval="false">
+              <div class="carousel-inner" style="min-height:100%">
                   <div class="carousel-item active">
                     <h3 class="text-center text-white">{{whiteboard_active.name}}</h3>
-                   <div class="row justify-content-center" id="files">
+                    <div class="row justify-content-center" id="files">
                     {% for file in whiteboard_active.files.all %}
-                        <div class="card" style="margin:10px; min-width:25rem; width:30rem; height:45rem">
+                        <div class="card file border-success-wide" id="file_{{file.id}}" style="margin:10px; min-width:20rem; min-height:30rem; width:30rem; height:45rem; position:relative;">
                             <div class="card-body">
-                                <h5 class="card-title">{{file.name}}</h5>
-                                <embed src="{{ MEDIA_PREFIX }}{{ file.path }}" type="application/pdf" width="100%" height="90%" />
+                                <h5 style="display:none" class="card-title">{{file.name}}</h5>
+                                <embed src="{{ MEDIA_PREFIX }}{{ file.path }}" type="application/pdf" width="100%" height="95%" />
+                            </div>
+                            <div class="row" style="position:relative; bottom:57px; left:20px">
+                                <div class="btn text-dark" style="margin:10px" onclick="enlarge({{file.id}})"><h5><b>+</b></h5></div>
+                                <div class="btn text-dark" style="margin:10px" onclick="diminish({{file.id}})"><h5><b>-</b></h5></div>
                             </div>
                         </div>
                     {% endfor %}
+                    <div class="draggable bg-white text-center" style="display:none; opacity:0.5; margin:10px; border-radius:10; width:30rem; height:45rem" oijstyle="opacity:0.5; margin:10px; width:30rem; height:45rem; position:relative">
+                        <h4 class="text-dark">Draw</h4>
+                        <!-- <div class="btn btn-block draggable text-white bg-dark text-center" style="float:bottom; border-radius:0">Touch here to drag</div> -->
+                    </div>
                  </div>
                 </div>
-
                  {% for whiteboard in whiteboards %}
                 <div class="carousel-item">
                         <h3 class="text-center text-white">{{whiteboard.name}}</h3>
                    <div class="row justify-content-center" id="files_{{whiteboard.id}}">
                     {% for file in whiteboard.files.all %}
-                        <div class="card" style="margin:10px; min-width:25rem; width:30rem; height:45rem">
-                            <div class="card-body">
-                                <h5 class="card-title">{{file.name}}</h5>
-                                <embed src="{{ MEDIA_PREFIX }}{{ file.path }}" type="application/pdf" width="100%" height="90%" />
-                            </div>
+                    <div class="card file border-success-wide" id="file_{{file.id}}" style="margin:10px; min-width:20rem; min-height:30rem; width:30rem; height:45rem; position:relative;">
+                        <div class="card-body">
+                            <h5 style="display:none" class="card-title">{{file.name}}</h5>
+                            <embed src="{{ MEDIA_PREFIX }}{{ file.path }}" type="application/pdf" width="100%" height="95%" />
                         </div>
+                        <div class="row" style="position:relative; bottom:57px; left:20px">
+                            <div class="btn text-dark" style="margin:10px" onclick="enlarge({{file.id}})"><h5><b>+</b></h5></div>
+                            <div class="btn text-dark" style="margin:10px" onclick="diminish({{file.id}})"><h5><b>-</b></h5></div>
+                        </div>
+                    </div>
                     {% endfor %}
                  </div>
                 </div>
@@ -124,50 +251,60 @@
     </div>
 </body>
 <script>
-    $('#carouselExampleIndicators').carousel({
-    interval: false
-    });
 
     var files = document.getElementById("files")
-    //{% for whiteboard in whiteboards %}
-    //    files.append(document.getElementById("files_{{whiteboard.id}}"))
-    //{% endfor %}    
     console.log(files.getElementsByClassName("card-title")[0].innerHTML)
     var whiteboard
     var filesList = Array.prototype.slice.call(files.getElementsByClassName("card"))
-{% for whiteboard in whiteboards %}
-    var whiteboard_{{whiteboard.name}}_files = document.getElementById("files_{{whiteboard.id}}").getElementsByClassName("card")
-    whiteboard_{{whiteboard.name}}_array = Array.prototype.slice.call(whiteboard_{{whiteboard.name}}_files)
-    console.log(whiteboard_{{whiteboard.name}}_array)
+    var whiteboardsList = Array.prototype.slice.call(document.getElementsByClassName("carousel-item"))
 
-    whiteboard_{{whiteboard.name}}_array.forEach(element => {
-        filesList.push(element)
-    });
-{% endfor %}    
 
-    console.log(filesList)
+    console.log(whiteboardsList)
+    var currentWhiteboardInd = 0;
+    var whiteboardsCount = whiteboardsList.length
+    var currWhiteboardName = whiteboardsList[0].getElementsByTagName("h3")[0].innerHTML
+    var whiteboardIndicator = document.getElementById("wb_steer_indicator")
+    whiteboardIndicator.innerHTML = currWhiteboardName
+
     var currentFileName = filesList[0].getElementsByClassName("card-title")[0].innerHTML
     var currentFileInd = 0
+    currentFile = filesList[0]
+    filesList[0].classList.add("bg-secondary")
     var filesCount = filesList.length
     var fileIndicator = document.getElementById("file_manager_name")
-    console.log(fileIndicator)
     var whiteboard_name = ""
-    fileIndicator.innerHTML = currentFileName.substring(0,15)+ " ...";
+    fileIndicator.innerHTML = currentFileName.substring(0,22);
 
     function nextFile(){
+        currentFile = filesList[currentFileInd]
+        currentFile.classList.remove("bg-secondary")
         currentFileInd = (currentFileInd + 1) % filesCount
+        currentFile = filesList[currentFileInd]
+        currentFile.classList.add("bg-secondary")
         currentFileName = filesList[currentFileInd].getElementsByClassName("card-title")[0].innerHTML
-        fileIndicator.innerHTML = currentFileName.substring(0,15) + " ...";
+        fileIndicator.innerHTML = currentFileName.substring(0,22);
     }
 
     function prevFile(){
+        currentFile = filesList[currentFileInd]
+        currentFile.classList.remove("bg-secondary")
         currentFileInd = (currentFileInd - 1) % filesCount
+        if (currentFileInd < 0){
+            currentFileInd=0
+        }
+        currentFile = filesList[currentFileInd]
+        currentFile.classList.add("bg-secondary")
         currentFileName = filesList[currentFileInd].getElementsByClassName("card-title")[0].innerHTML
-        fileIndicator.innerHTML = currentFileName.substring(0,15)+ " ...";
+        fileIndicator.innerHTML = currentFileName.substring(0,22);
     }
 
-    function enlarge(){
-        currentFile = filesList[currentFileInd]
+    function enlarge(id="None"){
+        if (id != "None"){
+            currentFile = document.getElementById("file_"+id)
+        }
+        else{
+            currentFile = filesList[currentFileInd]
+        }
         width = currentFile.style.width 
         height = currentFile.style.height
         width_int = parseInt(width.substring(0,2))
@@ -179,8 +316,14 @@
         console.log(currentFile.style.width )
     }
 
-    function diminish(){
-        currentFile = filesList[currentFileInd]
+    function diminish(id="None"){
+        if (id != "None"){
+            currentFile = document.getElementById("file_"+id)
+        }
+        else{
+            currentFile = filesList[currentFileInd]
+        }
+        console.log(currentFile)
         width = currentFile.style.width 
         height = currentFile.style.height
         width_int = parseInt(width.substring(0,2))
@@ -191,6 +334,146 @@
         currentFile.style.height = height_int +"rem"
         console.log(currentFile.style.width )
     }
+
+    function nextWhiteboard(){
+        currentFile.classList.remove("bg-secondary")
+        currentWhiteboardInd = (currentWhiteboardInd + 1)%whiteboardsCount
+        currWhiteboardName = whiteboardsList[currentWhiteboardInd].getElementsByTagName("h3")[0].innerHTML
+        whiteboardIndicator.innerHTML = currWhiteboardName
+        filesList = Array.prototype.slice.call(whiteboardsList[currentWhiteboardInd].getElementsByClassName("card"))
+        currentFileInd = 0
+        filesCount = filesList.length
+        filesList[0].classList.add("bg-secondary")
+        currentFileName = filesList[currentFileInd].getElementsByClassName("card-title")[0].innerHTML
+        fileIndicator.innerHTML = currentFileName.substring(0,22);
+    }
+
+    function prevWhiteboard(){
+        currentFile.classList.remove("bg-secondary")
+        currentWhiteboardInd = (currentWhiteboardInd - 1)
+        if (currentWhiteboardInd < 0){
+            currentWhiteboardInd = whiteboardsCount-1;
+        }
+        currWhiteboardName = whiteboardsList[currentWhiteboardInd].getElementsByTagName("h3")[0].innerHTML
+        whiteboardIndicator.innerHTML = currWhiteboardName
+        filesList = Array.prototype.slice.call(whiteboardsList[currentWhiteboardInd].getElementsByClassName("card"))
+        currentFileInd = 0
+        filesCount = filesList.length
+        filesList[0].classList.add("bg-secondary")
+        currentFileName = filesList[currentFileInd].getElementsByClassName("card-title")[0].innerHTML
+        fileIndicator.innerHTML = currentFileName.substring(0,22);
+    }
+
+    var toggleCount = 0;
+    function toggleIcon(){
+        icon = document.getElementById("showfiles")
+        if (toggleCount % 2 == 0){
+            icon.classList.remove("fa-chevron-down")
+            icon.classList.add("fa-chevron-up")
+            toggleCount += 1
+        }
+        else{
+            icon.classList.remove("fa-chevron-up")
+            icon.classList.add("fa-chevron-down")
+            toggleCount += 1
+        }
+    }
+
+    function onMouseMoveOnMyCanvas(event){
+
+        if (myCanvas.drawing)
+        {
+        var mouseX=event.layerX;
+        var mouseY=event.layerY;
+
+        var context = myCanvas.getContext("2d");
+        if (myCanvas.pathBegun==false)
+        {
+            context.beginPath();
+            myCanvas.pathBegun=true;
+        }
+        else
+        {
+            context.lineTo(mouseX, mouseY);
+            context.stroke();
+        }
+        }
+    }
+
+    function onMouseClickOnMyCanvas(event){
+        myCanvas.drawing=!myCanvas.drawing;
+        // reset the path when starting over
+        if (myCanvas.drawing)
+        myCanvas.pathBegun=false;
+    }
+
+    drawTogglenum = 1
+    function createCanvasOverlay(color, canvasContainer){
+            button = document.getElementById("drawButton")
+            if(drawTogglenum % 2 == 0){
+                container = document.getElementById("canvasContainer")
+                container.parentNode.removeChild(container)
+                //drawButton.classList.remove("btn-danger")
+                drawButton.innerHTML = "Draw"
+                drawTogglenum += 1
+            }
+            else{
+                //drawButton.classList.add("btn-danger")
+                drawButton.innerHTML = "Stop drawing"
+                drawTogglenum += 1
+            
+
+            if (true){
+            if (!canvasContainer){
+                canvasContainer = document.createElement('div');
+                document.body.appendChild(canvasContainer);
+                canvasContainer.setAttribute("id", "canvasContainer")
+                canvasContainer.style.position="absolute";
+                canvasContainer.style.left="0px";
+                canvasContainer.style.top="0px";
+                canvasContainer.style.width="100%";
+                canvasContainer.style.height="100%";
+                canvasContainer.style.zIndex="100";
+                superContainer=document.body;
+            }else
+                superContainer=canvasContainer;
+
+            myCanvas = document.createElement('canvas');
+            myCanvas.style.width = superContainer.scrollWidth+"px";
+            myCanvas.style.height = superContainer.scrollHeight+"px";
+            // You must set this otherwise the canvas will be streethed to fit the container
+            myCanvas.width=superContainer.scrollWidth;
+            myCanvas.height=superContainer.scrollHeight;
+            myCanvas.style.overflow = 'visible';
+            myCanvas.style.position = 'absolute';
+
+            var context=myCanvas.getContext('2d');
+            context.fillStyle = color;
+            context.fillRect(0,0, myCanvas.width, myCanvas.height);
+            canvasContainer.appendChild(myCanvas);
+            context.strokeStyle='rgb(210,0,0)';  
+            context.lineWidth=6;                
+            myCanvas.parentNode.addEventListener('mousemove', onMouseMoveOnMyCanvas, false);
+            myCanvas.parentNode.addEventListener('mousedown', onMouseClickOnMyCanvas, false);
+            }
+        }
+    }
+
+    function drawRed(){
+        var context=myCanvas.getContext('2d');
+        context.strokeStyle='rgb(210,0,0)'; 
+    }
+
+    function drawYellow(){
+        var context=myCanvas.getContext('2d');
+        context.strokeStyle='rgb(240, 173, 78)'; 
+    }
+
+    function drawGreen(){
+        var context=myCanvas.getContext('2d');
+        context.strokeStyle='rgb(92, 184, 92)'; 
+    }
+
 
 
 
